@@ -10,31 +10,45 @@ const Intern = require('./lib/Intern');
 
 let employees = [];
 //prompt user input
-function teamMember() {
-    // Ask questions to gather information about employees.
-
-        inquirer.prompt([
+const teamMember = () => {
+ inquirer.prompt([
             {
+                name: "name",
                 type: "input",
                 message: "What is your name?",
-                name: "name",
-                validate: confirmName
+                validate: function (answer) {
+                    if (answer.length < 1) {
+                        return console.log("A valid name is required.");
+                    }
+                    return true;
+                }
             },
             {
+                name: "id",
                 type: "input",
                 message: "What is your employee id?",
-                name: "id",
-                validate: confirmNumber 
+                // validate: function (answer) {
+                //     if (answer.length < 1) {
+                //         return console.log("A valid email is required.");
+                //     }
+                //     return true;
+                // }
+     
             },
             {
+                name: "email",
                 type: "input",
                 message: "What is your email?",
-                name: "email",
-                validate: validateEmail
+                validate: function (answer) {
+                    if (answer.length < 1) {
+                        return console.log("A valid email is required.");
+                    }
+                    return true;
+                }
             },
             {
-                type: 'list',
                 name: 'role',
+                type: 'list',
                 message: 'What is your role?',
                 choices: ['Manager', 'Engineer', 'Intern']
             },
@@ -43,76 +57,58 @@ function teamMember() {
             when: list => {
                 return list.role == "Manager"
             },
-            type: "input",
             name: "officeNumber",
+            type: "input",
             message: "Enter your office number",
-            validate: async (input) => {
-                if (input == "" || /\s/.test(input)) {
-                    return "Please enter a valid office number";
-                }
-                return true;
-            }
         },
         {
             when: list => {
                 return list.role == "Engineer"
             },
-            type: "input",
             name: "github",
-            message: "Engineer, enter your github username:",
-            validate: async (input) => {
-                if (input == "" || /\s/.test(input)) {
-                    return "Please enter a valid GitHub username";
-                }
-                return true;
-            }
+            type: "input",
+            message: "Engineer, enter your github username:"
         },
         {
             when: list => {
                 return list.role == "Intern"
             },
-            type: "input",
             name: "school",
+            type: "input",
             message: "Enter the school name you graduated",
-            validate: async (input) => {
-                if (input == "" || /\s/.test(input)) {
-                    return "Please enter a valid school name";
-                }
-                return true;
-            }
-        },
+        }, 
         {
-            type: "list",
             name: "addAnother",
+            type: "list",
             message: "Add another team member?",
             choices: ["Yes", "No"]
-        }
-    ]);
-}
-function buildTeamList() {
-    inquire.prompt(teamMember).then(employeeInfo => {
-        if (employeeInfo.role == "Engineer") {
-            var newMember = new Engineer(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.github);
-        }else if (employeeInfo.role == "Manager") {
-            var newMember = new Manager(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.officeNumber);
-        }  
-        else {
-            var newMember = new Intern(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.school);
-        }
-        teamList.push(newMember);
-        if (employeeInfo.addAnother === "Yes") {
-            console.log(" ");
-            buildTeamList();
-        } else {
-            buildHtmlPage();
-        }
+        },
+    ])
+    .then((answer) => {
+        console.log(answer.name)
     })
-}
-            
-
-
- // Depending on the response, loop through questions to gather information and save to appropriate object
-          
+}; teamMember()
+// teamMember()
+// function buildTeamList() {
+//     inquire.prompt(teamMember).then(employeeInfo => {
+//         if (employeeInfo.role == "Engineer") {
+//             var newMember = new Engineer(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.github);
+//         }else if (employeeInfo.role == "Manager") {
+//             var newMember = new Manager(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.officeNumber);
+//         }  
+//         else {
+//             var newMember = new Intern(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.school);
+//         }
+//         teamList.push(newMember);
+//         if (employeeInfo.addAnother === "Yes") {
+//             console.log(" ");
+//             buildTeamList();
+//         } else {
+//             buildHtmlPage();
+//         }
+//     })
+// }
+//    buildTeamList()         
 
 //generate a html based on the user input
 
