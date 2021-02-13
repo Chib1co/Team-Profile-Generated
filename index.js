@@ -79,10 +79,11 @@ const teamMember = () => {
             choices: ["Yes", "No"]
         },
     ])
-    .then(() => {
-        buildTeamList()
+    .then((answer) => {
+        console.log('hello')
     })
-    }; teamMember()
+    }; 
+    teamMember()
 
     function buildTeamList(teamMember) {
         switch(answer.role){
@@ -119,31 +120,44 @@ const teamMember = () => {
             // })
         
         }
-    }; buildTeamList()      
+    };
+     buildTeamList()      
 
 //generate a html based on the user input
-// function getMainHtml() {
-//     const htmlPath = path.join(__dirname, "src", "html", "main.html");
+function getMainHtml() {
+    const htmlPath = path.join(__dirname, "src", "html", "main.html");
 
-//     const html = fs.readFileSync(htmlPath, "utf-8");
-//     return html;
-// }
-
-// for (let index = 0; index < employees.length; index++) {
-//     const employee = employees[index];
-
-
-//     let result = htmlParser.replaceTemplate(
-//         mainHtml,
-//         "{{ name }}",
-//         employee.name
-//     );
-
-//     result = htmlParser.replaceTemplate(mainHtml, "{{ email }}", employee.email);
-//     result = htmlParser.replaceTemplate(mainHtml, "{{ id }}", employee.id);
-
-
-// }
-function generateFile() {
-    fs.writeFileSync(outputPath, render(employees),"utf-8")
+    const html = fs.readFileSync(htmlPath, "utf-8");
+    return html;
 }
+
+
+// }
+// generate a html based on the user input
+// console.log(getMainHtml());
+
+const mainHtml = getMainHtml();
+const result = htmlParser.replaceTemplate(
+    mainHtml,
+    "{{ cards }}",
+    employees.role
+);
+for (let index = 0; index < employees.length; index++) {
+    const employee = employees[index];
+
+
+    let result = htmlParser.replaceTemplate(
+        mainHtml,
+        "{{ name }}",
+        employees.name
+    );
+
+    result = htmlParser.replaceTemplate(mainHtml, "{{ email }}", employees.email);
+    result = htmlParser.replaceTemplate(mainHtml, "{{ id }}", employees.id);
+
+
+console.log(result);
+const outputPath = path.join(__dirname, "output", "output.html");
+
+fs.writeFileSync(outputPath, result);
+    };
