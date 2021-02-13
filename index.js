@@ -47,19 +47,49 @@ const teamMember = () => {
                 message: 'What is your role?',
                 choices: ['manager', 'engineer', 'intern']
             },
-     
         {
-            when: list => {
-                return list.role == "Manager"
-            },
-            name: "officeNumber",
-            type: "input",
-            message: "Enter your office number",
+            name: "addAnother",
+            type: "list",
+            message: "Add another team member?",
+            choices: ["Yes", "No"]
         },
-        {
-            when: list => {
-                return list.role == "Engineer"
-            },
+    ])
+    .then(answers => {
+        if(answers.role === 'manager'){
+            runManagerQuestions()
+        }
+    })
+    .then(data => {
+        if(data.role === 'engineer'){
+            runEngineerQuestions()
+        }
+    })
+    .then(data => {
+        if(data.role === 'Intern'){
+            runInternQuestions()
+        }
+    });
+
+
+
+ const runManagerQuestions = () => {
+    inquirer.prompt([ 
+    {                 
+        name: "officeNumber",
+        type: "input",
+        message: "Enter your office number",
+    }
+    ])
+    .then((answer) => {
+        buildTeamList()
+        getMainHtml()
+    })
+    } 
+    };
+
+ const runEngineerQuestions = () => {
+        inquirer.prompt([ 
+        {                 
             name: "github",
             type: "input",
             message: "Engineer, enter your github username:",
@@ -69,33 +99,35 @@ const teamMember = () => {
                 }
                 return true;
             }
-        },
-        {
-            when: list => {
-                return list.role == "Intern"
-            },
-            name: "school",
-            type: "input",
-            message: "Enter the school name you graduated",
-            validate: function (answer) {
-                if (answer.length < 1) {
-                    return console.log("A valid email is required.");
+        }
+        ])
+        .then((answer) => {
+            buildTeamList()
+            getMainHtml()
+        })
+        }; 
+        
+const runInternrQuestions = () => {
+            inquirer.prompt([ 
+            {                 
+                name: "school",
+                type: "input",
+                message: "Enter the school name you graduated",
+                validate: function (answer) {
+                    if (answer.length < 1) {
+                        return console.log("A valid email is required.");
+                    }
+                    return true;
                 }
-                return true;
             }
-        }, 
-        {
-            name: "addAnother",
-            type: "list",
-            message: "Add another team member?",
-            choices: ["Yes", "No"]
-        },
-    ])
-    .then((answer) => {
-        buildTeamList()
-        getMainHtml()
-    })
-    }; 
+            ])
+            .then((answer) => {
+                buildTeamList()
+                getMainHtml()
+            })
+            }; 
+            
+  
     teamMember()
 
     function buildTeamList(teamMember) {
