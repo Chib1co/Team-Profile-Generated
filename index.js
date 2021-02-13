@@ -94,10 +94,14 @@ const runManagerQuestions = () => {
             chooseRole()
             break;
         case 'No':
-            console.log('no more team member')
-            break;
-    }
-        })
+            console.log(data.name)
+            console.log(data.id)
+            console.log(data.email)
+            console.log(data.officeNumber)
+            return new Manager(data.name, data.id, data.email, data.officeNumber)
+            
+        }
+});
 };
  const runEngineerQuestions = () => {
         inquirer.prompt([
@@ -153,13 +157,18 @@ const runManagerQuestions = () => {
                 case 'Yes':
                     chooseRole()
                     break;
-                case 'No':
-                    console.log('no more team member')
-                    break;
-            }
+                    case 'No':
+                        // console.log(data.name)
+                        // console.log(data.id)
+                        // console.log(data.email)
+                        // console.log(data.github)   
+                    return new Engineer(manager.length + 1, data.name, data.id, data.email, data.github)
+                    }
                 })
             
 };
+
+
  const runInternQuestions = () => {
             inquirer.prompt([
                       {
@@ -216,10 +225,15 @@ const runManagerQuestions = () => {
                         chooseRole()
                         break;
                     case 'No':
-                        console.log('no more team member')
-                        break;
-                }
+                        console.log(data.name)
+                        console.log(data.id)
+                        console.log(data.email)
+                        console.log(data.school)
+                        return new Intern(data.name, data.id, data.email, data.school)
+                            
+                        }
                     })
+                    
 };
 // add the answer data to an array or string
 // 4. after adding the data, it comes back to first function
