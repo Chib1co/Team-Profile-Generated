@@ -9,11 +9,11 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 
 let employees = [];
+
+ 
 //prompt user input
 const teamMember = () => {
  inquirer.prompt([
-// function teamMember(){
-//     const questions = [
            {
                 name: "name",
                 type: "input",
@@ -79,50 +79,71 @@ const teamMember = () => {
             choices: ["Yes", "No"]
         },
     ])
-    .then((answer) => {
-        console.log(answer.name)
+    .then(() => {
+        buildTeamList()
     })
     }; teamMember()
 
-function buildTeamList(teamMember) {
-    switch(list.role){
-        case 'manager':
-            console.log('this person is manager')
-            break;
-        case 'engineer':
-           console.log('engineer')
-           break;
-        case('intern'):
-            console.log('intern')
-            break;
-        default:
-            console.log('please chose your role')
-
-        // inquirer.prompt(teamMember).then(answer => {
-        //     if (answer.role == "Engineer") {
-        //         var newMember = new Engineer(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.github);
-        //     }else if (answer.role == "Manager") {
-        //         var newMember = new Manager(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.officeNumber);
-        //     }  
-        //     else {
-        //         var newMember = new Intern(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.school);
-        //     }
-        //     teamList.push(newMember);
-        //     if (employeeInfo.addAnother === "Yes") {
-        //         console.log(" ");
-        //         buildTeamList();
-        //     } else {
-        //         buildHtmlPage();
-        //     }
-        // })
+    function buildTeamList(teamMember) {
+        switch(answer.role){
+            case 'manager':
+                var newMember = new Manager(teamMember.name, employee.length + 1, teamMember.id, teamMember.email, teamMember.officeNumber)
+                break;
+            case 'engineer':
+                var newMember = new Engineer(teamMember.name, employee.length + 1, teamMember.id, teamMember.email, teamMember.github)
+                break;
+            case('intern'):
+                var newMember = new Manager(teamMember.name, employee.length + 1, teamMember.id, teamMember.email, teamMember.school)
+                break;
+            default:
+                console.log('please chose your role');
     
-    }
-}; buildTeamList()
-//    buildTeamList()         
+             employees.push(newMember)
+    
+            // inquirer.prompt(teamMember).then(answer => {
+            //     if (answer.role == "Engineer") {
+            //         var newMember = new Engineer(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.github);
+            //     }else if (answer.role == "Manager") {
+            //         var newMember = new Manager(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.officeNumber);
+            //     }  
+            //     else {
+            //         var newMember = new Intern(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.school);
+            //     }
+            //     teamList.push(newMember);
+            //     if (employeeInfo.addAnother === "Yes") {
+            //         console.log(" ");
+            //         buildTeamList();
+            //     } else {
+            //         buildHtmlPage();
+            //     }
+            // })
+        
+        }
+    }; buildTeamList()      
 
 //generate a html based on the user input
+// function getMainHtml() {
+//     const htmlPath = path.join(__dirname, "src", "html", "main.html");
+
+//     const html = fs.readFileSync(htmlPath, "utf-8");
+//     return html;
+// }
+
+// for (let index = 0; index < employees.length; index++) {
+//     const employee = employees[index];
 
 
+//     let result = htmlParser.replaceTemplate(
+//         mainHtml,
+//         "{{ name }}",
+//         employee.name
+//     );
+
+//     result = htmlParser.replaceTemplate(mainHtml, "{{ email }}", employee.email);
+//     result = htmlParser.replaceTemplate(mainHtml, "{{ id }}", employee.id);
+
+
+// }
 function generateFile() {
     fs.writeFileSync(outputPath, render(employees),"utf-8")
 }
