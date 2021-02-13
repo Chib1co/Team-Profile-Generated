@@ -62,7 +62,13 @@ const teamMember = () => {
             },
             name: "github",
             type: "input",
-            message: "Engineer, enter your github username:"
+            message: "Engineer, enter your github username:",
+            validate: function (answer) {
+                if (answer.length < 1) {
+                    return console.log("A valid email is required.");
+                }
+                return true;
+            }
         },
         {
             when: list => {
@@ -71,6 +77,12 @@ const teamMember = () => {
             name: "school",
             type: "input",
             message: "Enter the school name you graduated",
+            validate: function (answer) {
+                if (answer.length < 1) {
+                    return console.log("A valid email is required.");
+                }
+                return true;
+            }
         }, 
         {
             name: "addAnother",
@@ -80,48 +92,40 @@ const teamMember = () => {
         },
     ])
     .then((answer) => {
-        console.log('hello')
+        buildTeamList()
+        getMainHtml()
     })
     }; 
     teamMember()
 
     function buildTeamList(teamMember) {
-        switch(answer.role){
+        switch(list.role){
             case 'manager':
-                var newMember = new Manager(teamMember.name, employee.length + 1, teamMember.id, teamMember.email, teamMember.officeNumber)
+                var newMember = new Manager(teamMember.name, employees.length + 1, teamMember.id, teamMember.email, teamMember.officeNumber)
                 break;
             case 'engineer':
-                var newMember = new Engineer(teamMember.name, employee.length + 1, teamMember.id, teamMember.email, teamMember.github)
+                var newMember = new Engineer(teamMember.name, employees.length + 1, teamMember.id, teamMember.email, teamMember.github)
                 break;
             case('intern'):
-                var newMember = new Manager(teamMember.name, employee.length + 1, teamMember.id, teamMember.email, teamMember.school)
+                var newMember = new Manager(teamMember.name, employees.length + 1, teamMember.id, teamMember.email, teamMember.school)
                 break;
             default:
                 console.log('please chose your role');
     
              employees.push(newMember)
-    
-            // inquirer.prompt(teamMember).then(answer => {
-            //     if (answer.role == "Engineer") {
-            //         var newMember = new Engineer(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.github);
-            //     }else if (answer.role == "Manager") {
-            //         var newMember = new Manager(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.officeNumber);
-            //     }  
-            //     else {
-            //         var newMember = new Intern(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.school);
-            //     }
-            //     teamList.push(newMember);
-            //     if (employeeInfo.addAnother === "Yes") {
-            //         console.log(" ");
-            //         buildTeamList();
-            //     } else {
-            //         buildHtmlPage();
-            //     }
-            // })
-        
         }
+        switch(list.addAnother){
+            case 'Yes':
+                teamMember()
+                break;
+            case 'No':
+                getMainHtml()
+                break;
+
+        }
+         
     };
-     buildTeamList()      
+    //   buildTeamList()      
 
 //generate a html based on the user input
 function getMainHtml() {
@@ -132,16 +136,14 @@ function getMainHtml() {
 }
 
 
-// }
-// generate a html based on the user input
 // console.log(getMainHtml());
 
-const mainHtml = getMainHtml();
-const result = htmlParser.replaceTemplate(
-    mainHtml,
-    "{{ cards }}",
-    employees.role
-);
+// const mainHtml = getMainHtml();
+// const result = htmlParser.replaceTemplate(
+//     mainHtml,
+//     "{{ cards }}",
+//     employees.role
+// );
 for (let index = 0; index < employees.length; index++) {
     const employee = employees[index];
 
@@ -157,7 +159,7 @@ for (let index = 0; index < employees.length; index++) {
 
 
 console.log(result);
-const outputPath = path.join(__dirname, "output", "output.html");
+const outputPath = path.join(__dirname, "dist", "output.html");
 
 fs.writeFileSync(outputPath, result);
     };
