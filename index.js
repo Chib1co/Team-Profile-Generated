@@ -98,7 +98,7 @@ const runManagerQuestions = () => {
             console.log(data.id)
             console.log(data.email)
             console.log(data.officeNumber)
-            return new Manager(data.name, data.id, data.email, data.officeNumber)
+            return new Manager(manager.length + 1, data.name, data.id, data.email, data.officeNumber)
             
         }
 });
@@ -162,7 +162,7 @@ const runManagerQuestions = () => {
                         // console.log(data.id)
                         // console.log(data.email)
                         // console.log(data.github)   
-                    return new Engineer(manager.length + 1, data.name, data.id, data.email, data.github)
+                    return new Engineer(engineer.length + 1, data.name, data.id, data.email, data.github)
                     }
                 })
             
@@ -229,7 +229,7 @@ const runManagerQuestions = () => {
                         console.log(data.id)
                         console.log(data.email)
                         console.log(data.school)
-                        return new Intern(data.name, data.id, data.email, data.school)
+                        return new Intern(intern.length + 1, data.name, data.id, data.email, data.school)
                             
                         }
                     })
