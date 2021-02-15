@@ -91,14 +91,18 @@ const runManagerQuestions = () => {
         console.log(data.addAnother)
     switch(data.addAnother){
         case 'Yes':
+            var managerData = new Manager(data.name, data.id, data.email, data.officeNumber);
+            manager.push(managerData);
+            console.log(manager)
             chooseRole()
             break;
         case 'No':
-            console.log(data.name)
-            console.log(data.id)
-            console.log(data.email)
-            console.log(data.officeNumber)
-            return new Manager(manager.length + 1, data.name, data.id, data.email, data.officeNumber)
+            var managerData = new Manager(data.name, data.id, data.email, data.officeNumber);
+            manager.push(managerData);
+            console.log(manager)
+            getMainHtml()
+            generateManagerHtml()
+            break;
             
         }
 });
@@ -155,14 +159,16 @@ const runManagerQuestions = () => {
                 console.log(data.addAnother)
             switch(data.addAnother){
                 case 'Yes':
+                    var engineerData = new Engineer(data.name, data.id, data.email, data.github);
+                    engineer.push(engineerData);
                     chooseRole()
                     break;
                     case 'No':
-                        // console.log(data.name)
-                        // console.log(data.id)
-                        // console.log(data.email)
-                        // console.log(data.github)   
-                    return new Engineer(engineer.length + 1, data.name, data.id, data.email, data.github)
+                    var engineerData = new Engineer(data.name, data.id, data.email, data.github);
+                    engineer.push(engineerData);
+                    getMainHtml()
+                    generateEngineerHtml()
+                    break;
                     }
                 })
             
@@ -222,86 +228,82 @@ const runManagerQuestions = () => {
                     console.log(data.addAnother)
                 switch(data.addAnother){
                     case 'Yes':
+                        var internData = new Intern(data.name, data.id, data.email, data.school);
+                        intern.push(internData);
                         chooseRole()
                         break;
                     case 'No':
-                        console.log(data.name)
-                        console.log(data.id)
-                        console.log(data.email)
-                        console.log(data.school)
-                        return new Intern(intern.length + 1, data.name, data.id, data.email, data.school)
-                            
-                        }
+                        var internData = new Intern(data.name, data.id, data.email, data.school);
+                        intern.push(internData);
+                        getMainHtml() 
+                        generateInternHtml()
+                        break;                                            
+                    }
                     })
                     
 };
+
+
 // add the answer data to an array or string
 // 4. after adding the data, it comes back to first function
 // 5. if user chooses to stop adding employees, then call a function that uses 
 //all the data from the various prompts and use it to write a file
 
-    // function buildTeamList(teamMember) {
-    //     switch(answer.role){
-    //         case 'manager':
-    //             var newMember = new Manager(teamMember.name, employees.length + 1, teamMember.id, teamMember.email, teamMember.officeNumber)
-    //             break;
-    //         case 'engineer':
-    //             var newMember = new Engineer(teamMember.name, employees.length + 1, teamMember.id, teamMember.email, teamMember.github)
-    //             break;
-    //         case('intern'):
-    //             var newMember = new Intern(teamMember.name, employees.length + 1, teamMember.id, teamMember.email, teamMember.school)
-    //             break;
-    //         default:
-    //             console.log('please chose your role');
-    
-    //          employees.push(newMember)
-    //     }
-    //     switch(list.addAnother){
-    //         case 'Yes':
-    //             teamMember()
-    //             break;
-    //         case 'No':
-    //             getMainHtml()
-    //             break;
 
-    //     }
-         
-    // };
-    
+function getMainHtml() {
+    const htmlPath = path.join(__dirname, "src", "html", "main.html");
 
-//generate a html based on the user input
-// function getMainHtml() {
-//     const htmlPath = path.join(__dirname, "src", "html", "main.html");
+    const html = fs.readFileSync(htmlPath, "utf-8");
+    return html;
+}
+console.log(getMainHtml)
 
-//     const html = fs.readFileSync(htmlPath, "utf-8");
-//     return html;
+// function writeToFile(file, data) {
+//     fs.writeFile(file, data, function (err) {
+//         if (err) {
+//             return console.log(err);
+//         }
+//         console.log("Success!");
+//     })
 // }
+function generateManagerHtml(){
+for (let index = 0; index < manager.length; index++) {
+    const eachManager = manager[index];
+    console.log(eachManager)
+    fs.writeFile(__dirname, "dist", "team.html", function (err) {
+                 if (err) {
+                     return console.log(err);
+                 }
+                 console.log("Success!");
+             })
+}
+ };
 
+ function generateEngineerHtml(){
+    for (let index = 0; index < engineer.length; index++) {
+        const eachEngineer = engineer[index];
+        console.log(eachEngineer)
+    }
+     };
 
-// console.log(getMainHtml());
-
-// const mainHtml = getMainHtml();
-// const result = htmlParser.replaceTemplate(
-//     mainHtml,
-//     "{{ cards }}",
-//     employees.role
-// );
-// for (let index = 0; index < employees.length; index++) {
-//     const employee = employees[index];
-
-
+function generateInternHtml(){
+        for (let index = 0; index < intern.length; index++) {
+            const eachIntern = intern[index];
+            console.log(eachIntern)
+        }
+         };
 //     let result = htmlParser.replaceTemplate(
 //         mainHtml,
 //         "{{ name }}",
-//         employees.name
+//         manager.name
 //     );
 
-//     result = htmlParser.replaceTemplate(mainHtml, "{{ email }}", employees.email);
-//     result = htmlParser.replaceTemplate(mainHtml, "{{ id }}", employees.id);
+//     result = htmlParser.replaceTemplate(mainHtml, "{{ email }}", manager.email);
+//     result = htmlParser.replaceTemplate(mainHtml, "{{ id }}", manager.id);
 
 
 // console.log(result);
 // const outputPath = path.join(__dirname, "dist", "output.html");
 
 // fs.writeFileSync(outputPath, result);
-//     };
+//     }
