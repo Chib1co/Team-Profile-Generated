@@ -15,7 +15,7 @@ describe('Testing getname function', () => {
         it('it should give ID number', () => {
             const testid = 1;
             const e = 1;
-            const result = new Employee.getId(testid);
+            const result = new Employee().getId(testid);
 
             expect(result).toEqual(e)
         })
@@ -24,7 +24,7 @@ describe('Testing getname function', () => {
         it('it should give email address', () => {
             const testEmail = 'xxxx@gmail.com';
             const e = 'xxxx@gmail.com';
-            const result = new Employee.getId(testEmail);
+            const result = new Employee.getEmail(testEmail);
 
             expect(result).toEqual(e)
         })

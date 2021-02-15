@@ -6,9 +6,9 @@ describe('Testing getSchool function', () => {
         it('should should get school name', () => {
            const testSchool = 'SCU'
            const e = 'SCU'
-           const result = new Intern().getname(testSchool)
+           const result = new Intern().getSchool(testSchool)
 
-           expect(result).toEqual(e)  
+           expect(result).toEqual("SCU")  
         })
     })
 })

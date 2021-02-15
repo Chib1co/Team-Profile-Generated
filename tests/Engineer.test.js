@@ -6,7 +6,7 @@ describe('Testing getGithub function', () => {
         it('should should get github name', () => {
            const testGithubname = 'chib1co'
            const e = 'chib1co'
-           const result = new Engineer().getname(testGithubname)
+           const result = new Engineer().getGithub(testGithubname)
 
            expect(result).toEqual(e)  
         })

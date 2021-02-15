@@ -1,14 +1,19 @@
 const Manager = require('../lib/Manager')
 
 //we use describe to define test suite
-describe('Testing getOfficeNumber function', () => {
-    describe('getOfficeNumber', () => {
-        it('it should get officenumber', () => {
-           const testNum = 100
-           const e = 100
-           const result = new Manager().getname(testNum)
+// describe('Testing getOfficeNumber function', () => {
+//     describe('getOfficeNumber', () => {
+//         it('it should get officenumber', () => {
+//            const testNum = 100
+//            const e = 100
+//            const result = new Manager().getOfficeNumber(testNum)
 
-           expect(result).toEqual(e)  
-        })
-    })
-})
+//            expect(result).toEqual(e)  
+//         })
+//     })
+// })
+
+test("Can get office number", () => {
+    const e = new Manager().getOfficeNumber();
+    expect(typeof(e)).toBe("object");
+  });
