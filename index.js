@@ -9,6 +9,7 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 
 //creating arrays
+const emplyees = [];
 const manager = [];
 const engineer = [];
 const intern = [];
@@ -88,17 +89,16 @@ const runManagerQuestions = () => {
 
     ])
     .then ((data) => {
-        console.log(data.addAnother)
+        var managerData = new Manager(data.name, data.id, data.email, data.officeNumber);
+         manager.push(managerData);
+         emplyees.push(manager);
+         console.log(emplyees);
     switch(data.addAnother){
         case 'Yes':
-            var managerData = new Manager(data.name, data.id, data.email, data.officeNumber);
-            manager.push(managerData);
             console.log(manager)
             chooseRole()
             break;
         case 'No':
-            var managerData = new Manager(data.name, data.id, data.email, data.officeNumber);
-            manager.push(managerData);
             console.log(manager)
             getMainHtml()
             generateManagerHtml()
@@ -156,16 +156,13 @@ const runManagerQuestions = () => {
         
             ])
             .then ((data) => {
-                console.log(data.addAnother)
+                var engineerData = new Engineer(data.name, data.id, data.email, data.github);
+                engineer.push(engineerData);
             switch(data.addAnother){
                 case 'Yes':
-                    var engineerData = new Engineer(data.name, data.id, data.email, data.github);
-                    engineer.push(engineerData);
                     chooseRole()
                     break;
                     case 'No':
-                    var engineerData = new Engineer(data.name, data.id, data.email, data.github);
-                    engineer.push(engineerData);
                     getMainHtml()
                     generateEngineerHtml()
                     break;
@@ -225,16 +222,13 @@ const runManagerQuestions = () => {
             
                 ])
                 .then ((data) => {
-                    console.log(data.addAnother)
-                switch(data.addAnother){
-                    case 'Yes':
-                        var internData = new Intern(data.name, data.id, data.email, data.school);
+                    var internData = new Intern(data.name, data.id, data.email, data.school);
                         intern.push(internData);
+                switch(data.addAnother){
+                    case 'Yes':                        
                         chooseRole()
                         break;
                     case 'No':
-                        var internData = new Intern(data.name, data.id, data.email, data.school);
-                        intern.push(internData);
                         getMainHtml() 
                         generateInternHtml()
                         break;                                            
@@ -258,51 +252,49 @@ function getMainHtml() {
 }
 console.log(getMainHtml)
 
-// function writeToFile(file, data) {
-//     fs.writeFile(file, data, function (err) {
-//         if (err) {
-//             return console.log(err);
-//         }
-//         console.log("Success!");
-//     })
-// }
+
 function generateManagerHtml(){
 for (let index = 0; index < manager.length; index++) {
     const eachManager = manager[index];
-    console.log(eachManager)
-    fs.writeFile(__dirname, "dist", "team.html", function (err) {
-                 if (err) {
-                     return console.log(err);
-                 }
-                 console.log("Success!");
-             })
+    let data = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
+    data = data.replace("nameHere", eachManager.name);
+    data = data.replace("idHere", `ID: ${eachManager.id}`);
+    data = data.replace("emailHere", `Email: <a href="mailto:${eachManager.email}">${eachManager.email}</a>`);
+    data = data.replace("propertyHere", eachManager.officeNumber);
+    fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
+    console.log("Card appended");
 }
- };
+ }; 
+
 
  function generateEngineerHtml(){
     for (let index = 0; index < engineer.length; index++) {
         const eachEngineer = engineer[index];
-        console.log(eachEngineer)
+        let data = fs.readFileSync(`./src/html/engineercard.html`, 'utf8')
+        data = data.replace("nameHere", eachEngineer.name);
+        data = data.replace("idHere", `ID: ${eachEngineer.id}`);
+        data = data.replace("emailHere", `Email: <a href="mailto:${eachEngineer.email}">${eachEngineer.email}</a>`);
+        data = data.replace("propertyHere", eachEngineer.officeNumber);
+        fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
+        console.log("Card appended");
     }
      };
 
 function generateInternHtml(){
-        for (let index = 0; index < intern.length; index++) {
-            const eachIntern = intern[index];
-            console.log(eachIntern)
-        }
-         };
-//     let result = htmlParser.replaceTemplate(
-//         mainHtml,
-//         "{{ name }}",
-//         manager.name
-//     );
-
-//     result = htmlParser.replaceTemplate(mainHtml, "{{ email }}", manager.email);
-//     result = htmlParser.replaceTemplate(mainHtml, "{{ id }}", manager.id);
+    for (let index = 0; index < intern.length; index++) {
+        const eachIntern = intern[index];
+        let data = fs.readFileSync(`./src/html/interncard.html`, 'utf8')
+        data = data.replace("nameHere", eachIntern.name);
+        data = data.replace("idHere", `ID: ${eachIntern.id}`);
+        data = data.replace("emailHere", `Email: <a href="mailto:${eachIntern.email}">${eachIntern.email}</a>`);
+        data = data.replace("propertyHere", eachIntern.officeNumber);
+        fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
+        console.log("Card appended");
+    }
 
 
-// console.log(result);
+
+
 // const outputPath = path.join(__dirname, "dist", "output.html");
 
 // fs.writeFileSync(outputPath, result);
