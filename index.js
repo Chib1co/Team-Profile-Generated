@@ -90,8 +90,7 @@ const runManagerQuestions = () => {
     ])
     .then ((data) => {
         var managerData = new Manager(data.name, data.id, data.email, data.officeNumber);
-         manager.push(managerData);
-         employees.push(manager);
+         employees.push(managerData)
     switch(data.addAnother){
         case 'Yes':
             console.log(manager)
@@ -159,8 +158,7 @@ const runManagerQuestions = () => {
             ])
             .then ((data) => {
                 var engineerData = new Engineer(data.name, data.id, data.email, data.github);
-                engineer.push(engineerData);
-                employees.push(engineer);
+                employees.push(engineerData);
             switch(data.addAnother){
                 case 'Yes':
                     chooseRole()
@@ -229,8 +227,7 @@ const runManagerQuestions = () => {
                 ])
                 .then ((data) => {
                     var internData = new Intern(data.name, data.id, data.email, data.school);
-                        intern.push(internData);
-                        employees.push(intern);
+                        employees.push(internData);
                 switch(data.addAnother){
                     case 'Yes':                        
                         chooseRole()
@@ -251,18 +248,22 @@ const runManagerQuestions = () => {
 
 function generateHtml(){
     console.log(employees)
-    console.log(employees[0][0].getRole())
+    // console.log(employees[0][0].getRole())
     for (let index = 0; index < employees.length; index++) {
-        const eachEmployee = employees[index];
-    if(eachEmployee[0].getRole() === 'Manager'){
+        // const eachEmployee = employees[index];
+    if(employees[index].getRole() === 'Manager'){
         let data = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
-        data = data.replace("nameHere", eachManager.name);
-        data = data.replace("idHere", `ID: ${eachManager.id}`);
-        data = data.replace("emailHere", `Email: <a href="mailto:${eachManager.email}">${eachManager.email}</a>`);
-        data = data.replace("propertyHere", eachManager.officeNumber);
+        data = data.replaceTemplate("{{ name }}", employees.name );    
+        data = data.replaceTemplate("{{ email }}", employees.email);
+        data = data.replaceTemplate( "{{ id }}", employees.id);
+        data = data.replaceTemplate("{{ propertyHere }}", employees.officeNumber);
+        // data = data.replace("nameHere", eachManager.name);
+        // data = data.replace("idHere", `ID: ${eachManager.id}`);
+        // data = data.replace("emailHere", `Email: <a href="mailto:${eachManager.email}">${eachManager.email}</a>`);
+        // data = data.replace("propertyHere", eachManager.officeNumber);
         fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
         console.log("manager Card appended");
-    } else if(eachEmployee.role=== 'Engineer'){
+    } else if(employees[index].getRole() === 'Engineer'){
         let data = fs.readFileSync(`./src/html/engineercard.html`, 'utf8')
         data = data.replace("nameHere", eachEngineer.name);
         data = data.replace("idHere", `ID: ${eachEngineer.id}`);
@@ -270,7 +271,7 @@ function generateHtml(){
         data = data.replace("propertyHere", eachEngineer.github);
         fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
         console.log("Engineer Card appended");
-    }else if(eachEmployee.role === 'Intern'){
+    }else if(employees[index].getRole() === 'Intern'){
         let data = fs.readFileSync(`./src/html/interncard.html`, 'utf8')
         data = data.replace("nameHere", eachIntern.name);
         data = data.replace("idHere", `ID: ${eachIntern.id}`);
