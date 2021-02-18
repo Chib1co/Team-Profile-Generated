@@ -252,7 +252,7 @@ console.log(employees)
 function generateHtml(){
     for (let index = 0; index < employees.length; index++) {
         const eachEmployee = employees[index];
-    if(employees.getRole() === 'Manager'){
+    if(eachEmployee.getRole() === 'Manager'){
         let data = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
         data = data.replace("nameHere", eachManager.name);
         data = data.replace("idHere", `ID: ${eachManager.id}`);
@@ -260,7 +260,7 @@ function generateHtml(){
         data = data.replace("propertyHere", eachManager.officeNumber);
         fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
         console.log("manager Card appended");
-    } else if(employees.getRole() === 'Engineer'){
+    } else if(eachEmployee.getRole() === 'Engineer'){
         let data = fs.readFileSync(`./src/html/engineercard.html`, 'utf8')
         data = data.replace("nameHere", eachEngineer.name);
         data = data.replace("idHere", `ID: ${eachEngineer.id}`);
@@ -268,7 +268,7 @@ function generateHtml(){
         data = data.replace("propertyHere", eachEngineer.github);
         fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
         console.log("Engineer Card appended");
-    }else if(employees.getRole() === 'Intern'){
+    }else if(eachEmployee.getRole() === 'Intern'){
         let data = fs.readFileSync(`./src/html/interncard.html`, 'utf8')
         data = data.replace("nameHere", eachIntern.name);
         data = data.replace("idHere", `ID: ${eachIntern.id}`);
