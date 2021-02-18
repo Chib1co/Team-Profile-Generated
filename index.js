@@ -249,21 +249,13 @@ const runManagerQuestions = () => {
 function generateHtml(){
     console.log(employees)
     // console.log(employees[0][0].getRole())
-    for (let index = 0; index < employees.length; index++) {
-        // const eachEmployee = employees[index];
+    for (let index = 0; index < employees.length; index++) {1
         console.log(employees[index].getRole())
     if(employees[index].getRole() === 'Manager'){
-        // let data = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
-        // data = data.replaceTemplate("{{ name }}", employees.name );    
-        // data = data.replaceTemplate("{{ email }}", employees.email);
-        // data = data.replaceTemplate( "{{ id }}", employees.id);
-        // data = data.replaceTemplate("{{ propertyHere }}", employees.officeNumber);
-        // data = data.replace("nameHere", eachManager.name);
-        // data = data.replace("idHere", `ID: ${eachManager.id}`);
-        // data = data.replace("emailHere", `Email: <a href="mailto:${eachManager.email}">${eachManager.email}</a>`);
-        // data = data.replace("propertyHere", eachManager.officeNumber);
-        let managerCard = <div></div>
-        fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
+
+        let managerCard = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
+        managerCard = `<div class="name">${employees[index].name}</div>`
+        fs.appendFileSync("./dist/output/team.html", managerCard, err => { if (err) throw err; })
         console.log("manager Card appended");
     } else if(employees[index].getRole() === 'Engineer'){
         let data = fs.readFileSync(`./src/html/engineercard.html`, 'utf8')
@@ -285,6 +277,16 @@ function generateHtml(){
     }
 
 };
+
+        // let data = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
+        // data = data.replaceTemplate("{{ name }}", employees.name );    
+        // data = data.replaceTemplate("{{ email }}", employees.email);
+        // data = data.replaceTemplate( "{{ id }}", employees.id);
+        // data = data.replaceTemplate("{{ propertyHere }}", employees.officeNumber);
+        // data = data.replace("nameHere", eachManager.name);
+        // data = data.replace("idHere", `ID: ${eachManager.id}`);
+        // data = data.replace("emailHere", `Email: <a href="mailto:${eachManager.email}">${eachManager.email}</a>`);
+        // data = data.replace("propertyHere", eachManager.officeNumber);
 
 // add the answer data to an array or string
 // 4. after adding the data, it comes back to first function
