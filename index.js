@@ -10,11 +10,6 @@ const Intern = require('./lib/Intern');
 
 //creating arrays
 const employees = [];
-const manager = [];
-const engineer = [];
-const intern = [];
-
-
 
 // 1 create one inquirer prompt to ask which role
 // 2 .then navigate to each function depend on which role they choose
@@ -93,16 +88,10 @@ const runManagerQuestions = () => {
          employees.push(managerData)
     switch(data.addAnother){
         case 'Yes':
-            console.log(manager)
             chooseRole()
             break;
         case 'No':
-            console.log(manager)
-            // getMainHtml()
             generateHtml()
-            // generateManagerHtml()
-            // generateEngineerHtml()
-            // generateInternHtml()
             break;
             
         }
@@ -164,11 +153,7 @@ const runManagerQuestions = () => {
                     chooseRole()
                     break;
                     case 'No':
-                        // getMainHtml()
                         generateHtml()
-                        // generateManagerHtml()
-                        // generateEngineerHtml()
-                        // generateInternHtml()
                         break;
                     }
                 })
@@ -233,11 +218,7 @@ const runManagerQuestions = () => {
                         chooseRole()
                         break;
                     case 'No':
-                        // getMainHtml()
                         generateHtml()
-                        // generateManagerHtml()
-                        // generateEngineerHtml()
-                        // generateInternHtml()
                         break;
                                                                  
                     }
@@ -258,7 +239,8 @@ function generateHtml(){
            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-       <title>My Team</title>
+       <link rel="stylesheet" href="../team.css">
+           <title>My Team</title>
    </head>
    
    <body>
@@ -269,13 +251,11 @@ function generateHtml(){
                </h1>
            </div>
        </header>`
-    //    fs.writeFileSync("./dist/output/team.html", htmlHead, err => { if (err) throw err; })
-    //    console.log("head success");
     for (let index = 0; index < employees.length; index++) {
         if(employees[index].getRole() === 'Manager'){
     var managercardHtml = `<div class="container">
-          <div class="row d-flex justify-content-center" id="teamContainer"></div>
-    <div class="col-md-4">
+          <div class="row d-flex justify-content-center" id="teamContainer">
+    <div class="col-4">
         <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
             <div class="card-header text-white">
                 <h2 id="name">${employees[index].name}</h2>
@@ -285,20 +265,16 @@ function generateHtml(){
                 <div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" id="id">${employees[index].id}</li>
-                        <li class="list-group-item" id="email">${employees[index].email}</li>
+                        <li class="list-group-item" id="email"><a href="mailto:${employees[index].email}">${employees[index].email}</a></li>
                         <li class="list-group-item" id="property">${employees[index].officeNumber}</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
     </div>`
-    // fs.writeFileSync("./dist/output/team.html", managercardHtml, err => { if (err) throw err; })
-    //   console.log("manager cards success")}
          } else if(employees[index].getRole() === 'Engineer'){
-            var engineercardHtml = `<div class="container">
-            <div class="row d-flex justify-content-center" id="teamContainer"></div>
-      <div class="col-md-4">
+            var engineercardHtml = `
+      <div class="col-4">
           <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
               <div class="card-header text-white">
                   <h2 id="name">${employees[index].name}</h2>
@@ -308,19 +284,15 @@ function generateHtml(){
                   <div>
                       <ul class="list-group list-group-flush">
                           <li class="list-group-item" id="id">${employees[index].id}</li>
-                          <li class="list-group-item" id="email">${employees[index].email}</li>
-                          <li class="list-group-item" id="property">${employees[index].github}</li>
+                          <li class="list-group-item" id="email"><a href="mailto:${employees[index].email}">${employees[index].email}</a></li>
+                          <li class="list-group-item" id="property"><a href="https://github.com/${employees[index].github}">${employees[index].github}</a></li>
                       </ul>
                   </div>
               </div>
           </div>
-      </div>
       </div>`
-    //   fs.writeFileSync("./dist/output/team.html", engineercardHtml, err => { if (err) throw err; })
-    //   console.log("engineer cards success")    
         }else if(employees[index].getRole() === 'Intern'){
-        var interncardHtml = `<div class="container">
-        <div class="row d-flex justify-content-center" id="teamContainer"></div>
+        var interncardHtml = `
   <div class="col-md-4">
       <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
           <div class="card-header text-white">
@@ -331,23 +303,22 @@ function generateHtml(){
               <div>
                   <ul class="list-group list-group-flush">
                       <li class="list-group-item" id="id">${employees[index].id}</li>
-                      <li class="list-group-item" id="email">${employees[index].email}</li>
+                      <li class="list-group-item" id="email"><a href="mailto:${employees[index].email}">${employees[index].email}</a></li>
                       <li class="list-group-item" id="property">${employees[index].school}</li>
                   </ul>
               </div>
           </div>
       </div>
-  </div>
   </div>`
         }
         
-    }
-let endHtml =`</body></html>`
-let outputHtml = htmlHead.concat(managercardHtml, engineercardHtml, interncardHtml, endHtml);
-fs.writeFileSync("./dist/output/team.html", outputHtml, err => { if (err) throw err; })
-console.log("output success");
+     }
+     let endHtml =`</body></html>`
+     let outputHtml = htmlHead.concat(managercardHtml, engineercardHtml, interncardHtml, endHtml);
+     fs.writeFileSync("./dist/output/team.html", outputHtml, err => { if (err) throw err; })
+     console.log("output success");
 
-    }     
+} ;    
    
 // add the answer data to an array or string
 // 4. after adding the data, it comes back to first function
