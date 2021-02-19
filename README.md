@@ -1,4 +1,3 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Team-Profile-Generated
 Week10 Homework on BCS. Generate project team member profile.
@@ -6,12 +5,12 @@ Week10 Homework on BCS. Generate project team member profile.
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/Chib1co/Team-Profile-Generated">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Team-Profile-Generated</h3>
-
+<!-- 
   <p align="center">
     project_description
     <br />
@@ -24,7 +23,7 @@ Week10 Homework on BCS. Generate project team member profile.
     ·
     <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
   </p>
-</p>
+</p> -->
 
 
 
@@ -34,9 +33,6 @@ Week10 Homework on BCS. Generate project team member profile.
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -64,14 +60,6 @@ Week10 Homework on BCS. Generate project team member profile.
 Here's a blank template to get started:
 **To avoid retyping too much info. Do a search and replace with your text editor for the following:**
 `github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
-
-
-### Built With
-
-* []()
-* []()
-* []()
-
 
 
 <!-- GETTING STARTED -->
@@ -132,16 +120,15 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Tomomi Inoue
+Project Link: [https://github.com/Chib1co/Team-Profile-Generated](https://github.com/Chib1co/Team-Profile-Generated)
 
 
 

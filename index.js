@@ -269,11 +269,11 @@ function generateHtml(){
                </h1>
            </div>
        </header>`
-       fs.writeFileSync("./dist/output/team.html", htmlHead, err => { if (err) throw err; })
-       console.log("head success");
+    //    fs.writeFileSync("./dist/output/team.html", htmlHead, err => { if (err) throw err; })
+    //    console.log("head success");
     for (let index = 0; index < employees.length; index++) {
         if(employees[index].getRole() === 'Manager'){
-    let managercardHtml = `<div class="container">
+    var managercardHtml = `<div class="container">
           <div class="row d-flex justify-content-center" id="teamContainer"></div>
     <div class="col-md-4">
         <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
@@ -293,10 +293,10 @@ function generateHtml(){
         </div>
     </div>
     </div>`
-    fs.writeFileSync("./dist/output/team.html", managercardHtml, err => { if (err) throw err; })
-      console.log("manager cards success")}
-        else if(employees[index].getRole() === 'Engineer'){
-            let engineercardHtml = `<div class="container">
+    // fs.writeFileSync("./dist/output/team.html", managercardHtml, err => { if (err) throw err; })
+    //   console.log("manager cards success")}
+         } else if(employees[index].getRole() === 'Engineer'){
+            var engineercardHtml = `<div class="container">
             <div class="row d-flex justify-content-center" id="teamContainer"></div>
       <div class="col-md-4">
           <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
@@ -316,10 +316,10 @@ function generateHtml(){
           </div>
       </div>
       </div>`
-      fs.writeFileSync("./dist/output/team.html", engineercardHtml, err => { if (err) throw err; })
-      console.log("engineer cards success")    
+    //   fs.writeFileSync("./dist/output/team.html", engineercardHtml, err => { if (err) throw err; })
+    //   console.log("engineer cards success")    
         }else if(employees[index].getRole() === 'Intern'){
-        let interncardHtml = `<div class="container">
+        var interncardHtml = `<div class="container">
         <div class="row d-flex justify-content-center" id="teamContainer"></div>
   <div class="col-md-4">
       <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
@@ -339,93 +339,19 @@ function generateHtml(){
       </div>
   </div>
   </div>`
-  fs.writeFileSync("./dist/output/team.html", interncardHtml, err => { if (err) throw err; })
-  console.log("intern cards success")};
-  let endHtml =`</body></html>`
-  fs.writeFileSync("./dist/output/team.html", endHtml, err => { if (err) throw err; })
-      console.log("end success");
-}
-};
-      
-    // if(employees[index].getRole() === 'Manager'){
-    //  let managerCard = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
-    //     managerCard = `<div class="name">${employees[index].name}</div>`
-    //     fs.appendFileSync("./dist/output/team.html", managerCard, err => { if (err) throw err; })
-    //     console.log("manager Card appended");
-    // } else if(employees[index].getRole() === 'Engineer'){
-    //     let data = fs.readFileSync(`./src/html/engineercard.html`, 'utf8')
-    //     data = data.replace("nameHere", eachEngineer.name);
-    //     data = data.replace("idHere", `ID: ${eachEngineer.id}`);
-    //     data = data.replace("emailHere", `Email: <a href="mailto:${eachEngineer.email}">${eachEngineer.email}</a>`);
-    //     data = data.replace("propertyHere", eachEngineer.github);
-    //     fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
-    //     console.log("Engineer Card appended");
-    // }else if(employees[index].getRole() === 'Intern'){
-    //     let data = fs.readFileSync(`./src/html/interncard.html`, 'utf8')
-    //     data = data.replace("nameHere", eachIntern.name);
-    //     data = data.replace("idHere", `ID: ${eachIntern.id}`);
-    //     data = data.replace("emailHere", `Email: <a href="mailto:${eachIntern.email}">${eachIntern.email}</a>`);
-    //     data = data.replace("propertyHere", eachIntern.school);
-    //     fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
-    //     console.log("Intern Card appended");
-    // }
-    // }
+        }
+        
+    }
+let endHtml =`</body></html>`
+let outputHtml = htmlHead.concat(managercardHtml, engineercardHtml, interncardHtml, endHtml);
+fs.writeFileSync("./dist/output/team.html", outputHtml, err => { if (err) throw err; })
+console.log("output success");
 
+    }     
+   
 // add the answer data to an array or string
 // 4. after adding the data, it comes back to first function
 // 5. if user chooses to stop adding employees, then call a function that uses 
 //all the data from the various prompts and use it to write a file
-
-
-// function getMainHtml() {
-//     const htmlPath = path.join(__dirname, "src", "html", "main.html");
-
-//     const html = fs.readFileSync(htmlPath, "utf-8");
-//     return html;
-// }
-// console.log(getMainHtml)
-// console.log(employees)
-
-// function generateHtml(){
-
-//  function generateManagerHtml(){
-// for (let index = 0; index < manager.length; index++) {
-//     const eachManager = manager[index];
-//     let data = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
-//     data = data.replace("nameHere", eachManager.name);
-//     data = data.replace("idHere", `ID: ${eachManager.id}`);
-//     data = data.replace("emailHere", `Email: <a href="mailto:${eachManager.email}">${eachManager.email}</a>`);
-//     data = data.replace("propertyHere", eachManager.officeNumber);
-//     fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
-//     console.log("Card appended");
-// }
-//  }; 
-
-
-//  function generateEngineerHtml(){
-//     for (let index = 0; index < engineer.length; index++) {
-//         const eachEngineer = engineer[index];
-//         let data = fs.readFileSync(`./src/html/engineercard.html`, 'utf8')
-//         data = data.replace("nameHere", eachEngineer.name);
-//         data = data.replace("idHere", `ID: ${eachEngineer.id}`);
-//         data = data.replace("emailHere", `Email: <a href="mailto:${eachEngineer.email}">${eachEngineer.email}</a>`);
-//         data = data.replace("propertyHere", eachEngineer.github);
-//         fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
-//         console.log("Card appended");
-//     }
-//      };
-
-// function generateInternHtml(){
-//     for (let index = 0; index < intern.length; index++) {
-//         const eachIntern = intern[index];
-//         let data = fs.readFileSync(`./src/html/interncard.html`, 'utf8')
-//         data = data.replace("nameHere", eachIntern.name);
-//         data = data.replace("idHere", `ID: ${eachIntern.id}`);
-//         data = data.replace("emailHere", `Email: <a href="mailto:${eachIntern.email}">${eachIntern.email}</a>`);
-//         data = data.replace("propertyHere", eachIntern.school);
-//         fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
-//         console.log("Card appended");
-//     }
-// }
 
 
