@@ -98,7 +98,7 @@ const runManagerQuestions = () => {
             break;
         case 'No':
             console.log(manager)
-            getMainHtml()
+            // getMainHtml()
             generateHtml()
             // generateManagerHtml()
             // generateEngineerHtml()
@@ -164,7 +164,7 @@ const runManagerQuestions = () => {
                     chooseRole()
                     break;
                     case 'No':
-                        getMainHtml()
+                        // getMainHtml()
                         generateHtml()
                         // generateManagerHtml()
                         // generateEngineerHtml()
@@ -233,7 +233,7 @@ const runManagerQuestions = () => {
                         chooseRole()
                         break;
                     case 'No':
-                        getMainHtml()
+                        // getMainHtml()
                         generateHtml()
                         // generateManagerHtml()
                         // generateEngineerHtml()
@@ -247,46 +247,129 @@ const runManagerQuestions = () => {
 
 
 function generateHtml(){
-    console.log(employees)
-    // console.log(employees[0][0].getRole())
-    for (let index = 0; index < employees.length; index++) {1
-        console.log(employees[index].getRole())
-    if(employees[index].getRole() === 'Manager'){
-
-        let managerCard = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
-        managerCard = `<div class="name">${employees[index].name}</div>`
-        fs.appendFileSync("./dist/output/team.html", managerCard, err => { if (err) throw err; })
-        console.log("manager Card appended");
-    } else if(employees[index].getRole() === 'Engineer'){
-        let data = fs.readFileSync(`./src/html/engineercard.html`, 'utf8')
-        data = data.replace("nameHere", eachEngineer.name);
-        data = data.replace("idHere", `ID: ${eachEngineer.id}`);
-        data = data.replace("emailHere", `Email: <a href="mailto:${eachEngineer.email}">${eachEngineer.email}</a>`);
-        data = data.replace("propertyHere", eachEngineer.github);
-        fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
-        console.log("Engineer Card appended");
-    }else if(employees[index].getRole() === 'Intern'){
-        let data = fs.readFileSync(`./src/html/interncard.html`, 'utf8')
-        data = data.replace("nameHere", eachIntern.name);
-        data = data.replace("idHere", `ID: ${eachIntern.id}`);
-        data = data.replace("emailHere", `Email: <a href="mailto:${eachIntern.email}">${eachIntern.email}</a>`);
-        data = data.replace("propertyHere", eachIntern.school);
-        fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
-        console.log("Intern Card appended");
-    }
-    }
-
+   let htmlHead = `<!DOCTYPE html>
+   <html lang="en">
+   
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <meta http-equiv="X-UA-Compatible" content="ie=edge">
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+       <title>My Team</title>
+   </head>
+   
+   <body>
+       <header class="jumbotron jumbotron-fluid">
+           <div class="container">
+               <h1 class="display-4">
+                   My Team
+               </h1>
+           </div>
+       </header>`
+       fs.writeFileSync("./dist/output/team.html", htmlHead, err => { if (err) throw err; })
+       console.log("head success");
+    for (let index = 0; index < employees.length; index++) {
+        if(employees[index].getRole() === 'Manager'){
+    let managercardHtml = `<div class="container">
+          <div class="row d-flex justify-content-center" id="teamContainer"></div>
+    <div class="col-md-4">
+        <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
+            <div class="card-header text-white">
+                <h2 id="name">${employees[index].name}</h2>
+                <h3 class="role">${employees[index].getRole()}</h3>
+            </div>
+            <div class="card-body bg-light align-content-center flex-wrap">
+                <div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" id="id">${employees[index].id}</li>
+                        <li class="list-group-item" id="email">${employees[index].email}</li>
+                        <li class="list-group-item" id="property">${employees[index].officeNumber}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>`
+    fs.writeFileSync("./dist/output/team.html", managercardHtml, err => { if (err) throw err; })
+      console.log("manager cards success")}
+        else if(employees[index].getRole() === 'Engineer'){
+            let engineercardHtml = `<div class="container">
+            <div class="row d-flex justify-content-center" id="teamContainer"></div>
+      <div class="col-md-4">
+          <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
+              <div class="card-header text-white">
+                  <h2 id="name">${employees[index].name}</h2>
+                  <h3 class="role">${employees[index].getRole()}</h3>
+              </div>
+              <div class="card-body bg-light align-content-center flex-wrap">
+                  <div>
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item" id="id">${employees[index].id}</li>
+                          <li class="list-group-item" id="email">${employees[index].email}</li>
+                          <li class="list-group-item" id="property">${employees[index].github}</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>`
+      fs.writeFileSync("./dist/output/team.html", engineercardHtml, err => { if (err) throw err; })
+      console.log("engineer cards success")    
+        }else if(employees[index].getRole() === 'Intern'){
+        let interncardHtml = `<div class="container">
+        <div class="row d-flex justify-content-center" id="teamContainer"></div>
+  <div class="col-md-4">
+      <div class="card bg-danger border-light shadow mb-3" style="max-width: 18rem; height: 22rem;">
+          <div class="card-header text-white">
+              <h2 id="name">${employees[index].name}</h2>
+              <h3 class="role">${employees[index].getRole()}</h3>
+          </div>
+          <div class="card-body bg-light align-content-center flex-wrap">
+              <div>
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item" id="id">${employees[index].id}</li>
+                      <li class="list-group-item" id="email">${employees[index].email}</li>
+                      <li class="list-group-item" id="property">${employees[index].school}</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>`
+  fs.writeFileSync("./dist/output/team.html", interncardHtml, err => { if (err) throw err; })
+  console.log("intern cards success")};
+  let endHtml =`</body></html>`
+  fs.writeFileSync("./dist/output/team.html", endHtml, err => { if (err) throw err; })
+      console.log("end success");
+}
 };
-
-        // let data = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
-        // data = data.replaceTemplate("{{ name }}", employees.name );    
-        // data = data.replaceTemplate("{{ email }}", employees.email);
-        // data = data.replaceTemplate( "{{ id }}", employees.id);
-        // data = data.replaceTemplate("{{ propertyHere }}", employees.officeNumber);
-        // data = data.replace("nameHere", eachManager.name);
-        // data = data.replace("idHere", `ID: ${eachManager.id}`);
-        // data = data.replace("emailHere", `Email: <a href="mailto:${eachManager.email}">${eachManager.email}</a>`);
-        // data = data.replace("propertyHere", eachManager.officeNumber);
+      
+    // if(employees[index].getRole() === 'Manager'){
+    //  let managerCard = fs.readFileSync(`./src/html/managercard.html`, 'utf8')
+    //     managerCard = `<div class="name">${employees[index].name}</div>`
+    //     fs.appendFileSync("./dist/output/team.html", managerCard, err => { if (err) throw err; })
+    //     console.log("manager Card appended");
+    // } else if(employees[index].getRole() === 'Engineer'){
+    //     let data = fs.readFileSync(`./src/html/engineercard.html`, 'utf8')
+    //     data = data.replace("nameHere", eachEngineer.name);
+    //     data = data.replace("idHere", `ID: ${eachEngineer.id}`);
+    //     data = data.replace("emailHere", `Email: <a href="mailto:${eachEngineer.email}">${eachEngineer.email}</a>`);
+    //     data = data.replace("propertyHere", eachEngineer.github);
+    //     fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
+    //     console.log("Engineer Card appended");
+    // }else if(employees[index].getRole() === 'Intern'){
+    //     let data = fs.readFileSync(`./src/html/interncard.html`, 'utf8')
+    //     data = data.replace("nameHere", eachIntern.name);
+    //     data = data.replace("idHere", `ID: ${eachIntern.id}`);
+    //     data = data.replace("emailHere", `Email: <a href="mailto:${eachIntern.email}">${eachIntern.email}</a>`);
+    //     data = data.replace("propertyHere", eachIntern.school);
+    //     fs.appendFileSync("./dist/output/team.html", data, err => { if (err) throw err; })
+    //     console.log("Intern Card appended");
+    // }
+    // }
 
 // add the answer data to an array or string
 // 4. after adding the data, it comes back to first function
@@ -294,14 +377,14 @@ function generateHtml(){
 //all the data from the various prompts and use it to write a file
 
 
-function getMainHtml() {
-    const htmlPath = path.join(__dirname, "src", "html", "main.html");
+// function getMainHtml() {
+//     const htmlPath = path.join(__dirname, "src", "html", "main.html");
 
-    const html = fs.readFileSync(htmlPath, "utf-8");
-    return html;
-}
-console.log(getMainHtml)
-console.log(employees)
+//     const html = fs.readFileSync(htmlPath, "utf-8");
+//     return html;
+// }
+// console.log(getMainHtml)
+// console.log(employees)
 
 // function generateHtml(){
 
